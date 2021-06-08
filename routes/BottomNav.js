@@ -1,15 +1,15 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Main from '../screens/MainScreen'
-import CamBienCongTac from "../screens/Setting";
-import CamBienHongNgoai from "../screens/Setting";
-import CamBienKhiGas from "../screens/Notification";
+import Setting from "../screens/CongTac/Setting";
+import Camera from "../screens/CongTac/Camera";
+import Notify from "../screens/CongTac/Notification";
+import Status from '../screens/CongTac/Status'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const TabsCongTac = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -23,10 +23,23 @@ const Tabs = () => {
         },
       }}
     >
-        <Tab.Screen name="Home" component={Main}/>
+        <Tab.Screen name="Status" component={Status}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{ alignItems: "center", justifyContent: "center", top: 5 }}
+            >
+              <Image
+                source={require("../assets/icon/home.png")}
+                resizeMode="contain"
+                style={{ width: focused ? 50 : 40, height: focused ? 50 : 40 }}
+              />
+            </View>
+          ),
+        }}/>
       <Tab.Screen
-        name="CongTac"
-        component={CamBienCongTac}
+        name="Setting"
+        component={Setting}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -41,7 +54,7 @@ const Tabs = () => {
           ),
         }}
       />
-      <Tab.Screen name="HongNgoai" component={CamBienHongNgoai} options={{
+      <Tab.Screen name="Camera" component={Camera} options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{ alignItems: "center", justifyContent: "center", top: 5 }}
@@ -54,7 +67,7 @@ const Tabs = () => {
             </View>
           ),
         }}/>
-      <Tab.Screen name="KhiGas" component={CamBienKhiGas} options={{
+      <Tab.Screen name="Notification" component={Notify} options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{ alignItems: "center", justifyContent: "center", top: 5 }}
@@ -84,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Tabs;
+export default TabsCongTac;

@@ -1,8 +1,15 @@
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import {Text} from "react-native";
+
+import { Text } from "react-native";
+import TabsCongTac from "../routes/BottomNav";
 
 const CongTac = () => {
-  return <Text>Công tắc</Text>;
+  return (
+    <NavigationContainer>
+      <TabsCongTac />
+    </NavigationContainer>
+  );
 };
 
 export default CongTac;
