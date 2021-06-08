@@ -7,12 +7,12 @@ const StatusEnable = () => {
         <Text style={{
           marginBottom:10,
         }}>Đang bảo vệ</Text>
-      <Image source={require("../../assets/icon/lock_red.png")} />
+      <Image source={require("../../assets/icon/shield.png")} />
       <View style={styles.poly}>
         <Image source={require("../../assets/icon/poly_red.png")} />
         <Text style={{
           marginTop:10,
-        }}>Tắt</Text>
+        }}>Khóa trái cửa</Text>
       </View>
     </View>
   );
