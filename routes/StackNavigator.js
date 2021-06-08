@@ -42,7 +42,7 @@ const screens = {
     navigationOptions:{
       title:'Cảm biến khí gas'
     }
-  }
+  },
 };
 
 const StackScreens = createStackNavigator(screens, {
