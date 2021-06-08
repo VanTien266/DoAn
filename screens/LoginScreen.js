@@ -6,8 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-// const SCREENSIZE = Dimensions.get("screen");
-export default function Login({ navigation }) {
+
+// const navigation=useNavigation();
+const Login=( {navigation} )=> {
   const pressHandler = () => {
     navigation.navigate("Main");
   };
@@ -26,6 +27,8 @@ export default function Login({ navigation }) {
     </View>
   );
 }
+
+export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
