@@ -1,15 +1,12 @@
 import React from "react";
-import { Text, View, Image, StyleSheet,TouchableOpacity } from "react-native";
+import { Text, View, Image, StyleSheet } from "react-native";
 
-const Status = (props) => {
+const StatusEnable = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.poly}>
         <Text style={{
           marginBottom:10,
-        }}>Kích hoạt</Text>
-        <Image source={require("../../assets/icon/poly_green.png")} />
-      </TouchableOpacity>
+        }}>Đang bảo vệ</Text>
       <Image source={require("../../assets/icon/lock_red.png")} />
       <View style={styles.poly}>
         <Image source={require("../../assets/icon/poly_red.png")} />
@@ -35,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Status;
+export default StatusEnable;
