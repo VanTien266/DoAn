@@ -6,9 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
-// const navigation=useNavigation();
-const Login=( {navigation} )=> {
+// const SCREENSIZE = Dimensions.get("screen");
+export default function Login({ navigation }) {
   const pressHandler = () => {
     navigation.navigate("Main");
   };
@@ -16,7 +15,10 @@ const Login=( {navigation} )=> {
     <View style={styles.container}>
       <Text style={styles.title}>Đăng nhập</Text>
       <TextInput style={styles.input} placeholder="Tài khoản" />
-      <TextInput style={styles.input} placeholder="Mật khẩu" />
+      <TextInput 
+        secureTextEntry
+        style={styles.input} 
+        placeholder="Mật khẩu" />
       <TouchableOpacity style={styles.buttonContainer} onPress={pressHandler}>
         <Text style={styles.button}>Đăng nhập</Text>
       </TouchableOpacity>
@@ -27,8 +29,6 @@ const Login=( {navigation} )=> {
     </View>
   );
 }
-
-export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,4 +78,3 @@ const styles = StyleSheet.create({
     color: "#053217",
   },
 });
-
