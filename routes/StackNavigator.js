@@ -2,6 +2,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
 import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen"
 import MainScreen from "../screens/MainScreen";
 import  CongTac from "../screens/CamBienCongTac"
 import  KhiGas from "../screens/CamBienKhiGas"
@@ -11,6 +12,12 @@ const screens = {
   Login: {
     screen: LoginScreen,
     options: { headerShown: false },
+  },
+  Register: {
+    screen: RegisterScreen,
+    navigationOptions: {
+      title: "Đăng ký"
+    },
   },
   Main: {
     screen: MainScreen,

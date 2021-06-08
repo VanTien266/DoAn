@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   StyleSheet,
   View,
@@ -10,6 +10,10 @@ import {
 import  Tabs from "../routes/BottomNav";
 
 const Main = (props) => {
+  const [user, setUser] = useState({
+    name: 'Luu Van Tien',
+    email: 'tienluu1122@gmail.com',
+  })
 
   return (
       <View styles={styles.container}>
@@ -18,8 +22,12 @@ const Main = (props) => {
           style={styles.image}
         >
           <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
-            Luu Van Tien
+            {user.name}
           </Text>
+          <Text style={{color: '#fff', fontSize: 20}}>
+            {user.email}
+          </Text>
+
         </ImageBackground>
         <View>
           <TouchableOpacity
