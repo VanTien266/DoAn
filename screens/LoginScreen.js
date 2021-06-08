@@ -15,7 +15,10 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Đăng nhập</Text>
       <TextInput style={styles.input} placeholder="Tài khoản" />
-      <TextInput style={styles.input} placeholder="Mật khẩu" />
+      <TextInput 
+        secureTextEntry
+        style={styles.input} 
+        placeholder="Mật khẩu" />
       <TouchableOpacity style={styles.buttonContainer} onPress={pressHandler}>
         <Text style={styles.button}>Đăng nhập</Text>
       </TouchableOpacity>
