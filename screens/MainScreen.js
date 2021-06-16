@@ -7,45 +7,41 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import  Tabs from "../routes/BottomNav";
 
-const Main = (props) => {
-
+export default function Main(props) {
   return (
-      <View styles={styles.container}>
-        <ImageBackground
-          source={require("../assets/background.png")}
-          style={styles.image}
+    <View styles={styles.container}>
+      <ImageBackground
+        source={require("../assets/background.png")}
+        style={styles.image}
+      >
+        <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
+          Luu Van Tien
+        </Text>
+      </ImageBackground>
+      <View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => props.navigation.navigate("CongTac")}
         >
-          <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
-            Luu Van Tien
-          </Text>
-        </ImageBackground>
-        <View>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={()=>props.navigation.navigate('CongTac')}
-          >
-            <Text style={styles.button}>Cảm biến công tắc</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={()=>props.navigation.navigate('HongNgoai')}
-          >
-            <Text style={styles.button}>Cảm biến hồng ngoại</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={()=>props.navigation.navigate('KhiGas')}
-          >
-            <Text style={styles.button}>Cảm biến khí gas</Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.button}>Cảm biến công tắc</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => props.navigation.navigate("HongNgoai")}
+        >
+          <Text style={styles.button}>Cảm biến hồng ngoại</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => props.navigation.navigate("KhiGas")}
+        >
+          <Text style={styles.button}>Cảm biến khí gas</Text>
+        </TouchableOpacity>
       </View>
+    </View>
   );
-};
-
-export default Main;
+}
 
 const styles = StyleSheet.create({
   container: {

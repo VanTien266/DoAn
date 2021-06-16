@@ -3,9 +3,9 @@ import { createAppContainer } from "react-navigation";
 
 import LoginScreen from "../screens/LoginScreen";
 import MainScreen from "../screens/MainScreen";
-import  CongTac from "../screens/CamBienCongTac"
-import  KhiGas from "../screens/CamBienKhiGas"
-import  HongNgoai from "../screens/CamBienHongNgoai"
+import CongTac from "../screens/CamBienCongTac";
+import KhiGas from "../screens/CamBienKhiGas";
+import HongNgoai from "../screens/CamBienHongNgoai";
 
 const screens = {
   Login: {
@@ -18,23 +18,23 @@ const screens = {
       title: "Trang chủ",
     },
   },
-  CongTac:{
+  CongTac: {
     screen: CongTac,
-    navigationOptions:{
-      title:'Cảm biến công tắc'
-    }
+    navigationOptions: {
+      title: "Cảm biến công tắc",
+    },
   },
-  HongNgoai:{
+  HongNgoai: {
     screen: HongNgoai,
-    navigationOptions:{
-      title:'Cảm biến hồng ngoại'
-    }
+    navigationOptions: {
+      title: "Cảm biến hồng ngoại",
+    },
   },
-  KhiGas:{
+  KhiGas: {
     screen: KhiGas,
-    navigationOptions:{
-      title:'Cảm biến khí gas'
-    }
+    navigationOptions: {
+      title: "Cảm biến khí gas",
+    },
   },
 };
 

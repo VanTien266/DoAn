@@ -6,8 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-// const SCREENSIZE = Dimensions.get("screen");
-export default function Login({ navigation }) {
+
+ export default function Login({ navigation }) {
   const pressHandler = () => {
     navigation.navigate("Main");
   };

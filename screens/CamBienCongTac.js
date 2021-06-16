@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 
-import { Text } from "react-native";
-import TabsCongTac from "../routes/BottomNav";
+import TabsCongTac from "../routes/TabNavigator";
 
 const CongTac = () => {
   return (
