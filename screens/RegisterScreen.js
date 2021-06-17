@@ -1,17 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
+    Text,
+    View,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    CheckBox,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function Register({navigation}) {
+export default function Register({ navigation }) {
     const loginPressHandler = () => {
         navigation.navigate("Main");
     };
+
+    const [isSelected, setSelection] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -24,7 +27,15 @@ export default function Register({navigation}) {
                 <TextInput secureTextEntry style={styles.input} placeholder="Mật khẩu" />
                 <TextInput secureTextEntry style={styles.input} placeholder="Nhập lại mật khẩu" />
             </ScrollView>
-            <Text style={styles.checkbox}>Tôi đồng ý với các điều khoản dịch vụ</Text>
+            <View style={styles.accept}>
+                <CheckBox
+                    value={isSelected}
+                    onValueChange={setSelection}
+                    style={styles.checkbox}
+                />
+                <Text style={styles.checkboxText}>Tôi đồng ý với các điều khoản dịch vụ</Text>
+            </View>
+
             <TouchableOpacity style={styles.buttonContainer} onPress={loginPressHandler}>
                 <Text style={styles.button}>Tiếp tục</Text>
             </TouchableOpacity>
@@ -34,7 +45,7 @@ export default function Register({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: "#fff",
         alignItems: "center",
         padding: 26,
@@ -51,7 +62,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         fontSize: 18,
         color: "#bbb",
-        fontWeight:'200',
+        fontWeight: '200',
     },
     input: {
         backgroundColor: "#96CCA5",
@@ -62,20 +73,28 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         fontSize: 18,
     },
-    checkbox: {
-        margin: 10,
+    accept: {
+        marginTop: 10,
+        flexDirection: "row",
+    },
+    checkbox:{
+        alignSelf:"center",
+    },
+    checkboxText: {
+        alignSelf:"center",
+        //margin: 10,
         fontSize: 14,
         color: "#bbb",
-        fontWeight:'200',
+        fontWeight: '200',
     },
     buttonContainer: {
         width: 150,
         height: 40,
         backgroundColor: "#017A23",
         borderRadius: 20,
-        paddingVertical: 2,
+        paddingVertical: 5,
         marginVertical: 25,
-      },
+    },
     button: {
         color: "#fff",
         alignSelf: "center",
