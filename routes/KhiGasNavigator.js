@@ -15,7 +15,7 @@ export default function KhiGasTab() {
                 style={{
                     alignItems: "center",
                     justifyContent: "center",
-                    top: 5,
+                    //top: 5,
                 }}
             >
                 <Image
