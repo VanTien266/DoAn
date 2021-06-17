@@ -16,7 +16,7 @@ export default function TabsCongTac() {
   const StatusStack = createStackNavigator();
   function StatusStackScreen() {
     return (
-      <StatusStack.Navigator initialRouteName="Status">
+      <StatusStack.Navigator initialRouteName="Status" headerMode="none">
         <StatusStack.Screen name="Status" component={Status} />
         <StatusStack.Screen name="StatusEnable" component={StatusEnable} />
         <StatusStack.Screen name="StatusDisable" component={StatusDisable} />

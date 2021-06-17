@@ -1,8 +1,14 @@
 import React from "react";
-import {Text} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+
+import KhiGasTab from "../routes/KhiGasNavigator";
 
 const KhiGas = () => {
-  return <Text>Khí gas</Text>;
+  return (
+    <NavigationContainer>
+      <KhiGasTab />
+    </NavigationContainer>
+  );
 };
 
 export default KhiGas;
