@@ -1,11 +1,12 @@
 import React, { Component, useState } from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import BlinkView from 'react-native-blink-view'
 
 export default function Status() {
   const unactive = require("../../assets/icon/lock_red.png")
   const active = require("../../assets/icon/shield.png")
-  const both = {unactive, active}
+  const both = { unactive, active }
   const [image, setImage] = useState(unactive)
   const [isActive, setIsActive] = useState(false)
   return (
@@ -21,19 +22,19 @@ export default function Status() {
       }}
     >
       <View style={[styles.container]}>
-        {isActive? null: <Text>Kích hoạt</Text>}
-        {isActive? null: <Image style={styles.poly} source={require("../../assets/icon/poly_green.png")} />}
-        
+        {isActive ? null : <Text>Kích hoạt</Text>}
+        {isActive ? <Image style={styles.poly} /> : <Image style={styles.poly} source={require("../../assets/icon/poly_green.png")} />}
+
         <Image source={image} style={{ width: 200, height: 200, resizeMode: "contain" }} />
 
 
-        {isActive? <Image style={styles.poly} source={require("../../assets/icon/poly_red.png")} />:null}
-        {isActive? <Text>Tắt</Text>:null}
+        {isActive ? <Image style={styles.poly} source={require("../../assets/icon/poly_red.png")} /> : null}
+        {isActive ? <Text>Tắt</Text> : null}
 
       </View>
     </GestureRecognizer>
   );
-m}
+}
 
 const styles = StyleSheet.create({
   container: {
