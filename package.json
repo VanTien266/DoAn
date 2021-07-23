@@ -7,6 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "3.2.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/slider": "^3.0.3",
     "@react-navigation/bottom-tabs": "^5.11.11",
@@ -22,6 +23,8 @@
     "react-native-camera": "^3.44.1",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-modal-datetime-picker": "^10.0.0",
+    "react-native-paper-dates": "^0.4.6",
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
@@ -29,9 +32,13 @@
     "react-native-web": "^0.16.5",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
+<<<<<<< HEAD
     "expo-splash-screen": "~0.10.2",
     "expo-updates": "~0.5.4",
     "react-native-unimodules": "~0.13.3"
+=======
+    "xdate": "^0.8.2"
+>>>>>>> 1633a44431849d4cc4629d5930dad0dd7142886c
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

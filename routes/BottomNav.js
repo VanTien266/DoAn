@@ -13,7 +13,6 @@ const TabsCongTac = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        showLabel: false,
         style: {
           position: "absolute",
           evaluation: 0,

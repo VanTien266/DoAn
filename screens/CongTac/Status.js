@@ -19,21 +19,20 @@ export default class Status extends Component {
           <Image source={require("../../assets/icon/poly_green.png")} />
         </TouchableOpacity>
         <Image source={require("../../assets/icon/lock_red.png")} />
-        <View style={styles.poly}>
-          <Image source={require("../../assets/icon/poly_red.png")} />
-          <TouchableOpacity
+        <TouchableOpacity
           style={styles.poly}
           onPress={() => this.props.navigation.navigate("StatusDisable")}
         >
-          <Text
-            style={{
-              marginTop: 10,
-            }}
-          >
-            Tắt
-          </Text>
-          </TouchableOpacity>
-        </View>
+            <Image source={require("../../assets/icon/poly_red.png")} />
+
+            <Text
+              style={{
+                marginTop: 10,
+              }}
+            >
+              Tắt
+            </Text>
+        </TouchableOpacity>
       </View>
     );
   }
