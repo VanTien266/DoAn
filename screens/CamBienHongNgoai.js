@@ -1,8 +1,14 @@
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import {Text} from "react-native";
+
+import TabsHongNgoai from "../routes/HongNgoaiNavigator";
 
 const HongNgoai = () => {
-  return <Text>Hồng ngoại</Text>;
+  return (
+    <NavigationContainer>
+      <TabsHongNgoai />
+    </NavigationContainer>
+  );
 };
 
 export default HongNgoai;

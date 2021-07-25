@@ -1,8 +1,17 @@
 import React from "react";
-import {Text} from "react-native";
+import { View } from "react-native";
 
 const HongNgoai = () => {
-  return <Text>Camera</Text>;
+  return (
+    <View
+      style={{
+        backgroundColor: "green",
+        width: 200,
+        height: 200,
+        alignSelf: "center",
+      }}
+    ></View>
+  );
 };
 
 export default HongNgoai;
