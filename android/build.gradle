@@ -2,20 +2,21 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "29.0.3"
+        buildToolsVersion = '29.0.3'
         minSdkVersion = 21
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        compileSdkVersion = 29
+        targetSdkVersion = 29
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0")
+        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.google.gms:google-services:4.3.8'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
     }
 }
 
@@ -35,4 +36,9 @@ allprojects {
         jcenter()
         maven { url 'https://www.jitpack.io' }
     }
+}
+
+dependencies {
+    // implementation 'com.github.mik3y:usb-serial-for-android:2.+'
+
 }

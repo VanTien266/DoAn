@@ -6,31 +6,31 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-// const SCREENSIZE = Dimensions.get("screen");
-export default function   Login({ navigation }) {
+
+export default function Login({ navigation }) {
   const loginPressHandler = () => {
     navigation.navigate("Main");
   };
 
   const registerPressHandler = () => {
     navigation.navigate("Register");
-  }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Đăng nhập</Text>
       <TextInput style={styles.input} placeholder="Tài khoản" />
-      <TextInput 
-        secureTextEntry
-        style={styles.input} 
-        placeholder="Mật khẩu" />
-      <TouchableOpacity style={styles.buttonContainer} onPress={loginPressHandler}>
+      <TextInput secureTextEntry style={styles.input} placeholder="Mật khẩu" />
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={loginPressHandler}
+      >
         <Text style={styles.button}>Đăng nhập</Text>
       </TouchableOpacity>
       <View style={styles.extend}>
         <TouchableOpacity onPress={registerPressHandler}>
           <Text style={styles.extendItem}>Đăng kí</Text>
         </TouchableOpacity>
-        
+
         <Text style={styles.extendItem}>Quên mật khẩu?</Text>
       </View>
     </View>
@@ -76,12 +76,12 @@ const styles = StyleSheet.create({
   },
   extend: {
     // flexDirection: "row",
-    paddingTop:10,
+    paddingTop: 10,
     alignItems: "center",
     justifyContent: "space-between",
   },
   extendItem: {
-    fontStyle:'italic',
+    fontStyle: "italic",
     fontWeight: "200",
     fontSize: 17,
     color: "#053217",

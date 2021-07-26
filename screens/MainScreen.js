@@ -9,12 +9,18 @@ import {
   Alert,
 } from "react-native";
 import Tabs from "../routes/BottomNav";
+import { db } from "../Components/FirebaseConfig";
 
 const Main = (props) => {
   const [user, setUser] = useState({
-    name: 'Luu Van Tien',
-    email: 'tienluu1122@gmail.com',
-  })
+    name: "",
+    email: "",
+  });
+  db.ref("/user")
+    .once("value")
+    .then((snapshot) => {
+      console.log(snapshot.val().name, snapshot.val().email);
+    });
 
   return (
     <View styles={styles.container}>
@@ -27,44 +33,38 @@ const Main = (props) => {
             style={styles.avatarImage}
             resizeMode="contain"
             source={require("../assets/default_avatar.png")}
-          >
-          </ImageBackground>
+          ></ImageBackground>
         </View>
         <View style={styles.userInfo}>
           <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
             {user.name}
           </Text>
-          <Text style={{ color: '#fff', fontSize: 18 }}>
-            {user.email}
-          </Text>
+          <Text style={{ color: "#fff", fontSize: 18 }}>{user.email}</Text>
         </View>
-
       </ImageBackground>
       <View>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => props.navigation.navigate('CongTac')}
+          onPress={() => props.navigation.navigate("CongTac")}
         >
           <Text style={styles.button}>Cảm biến công tắc</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => props.navigation.navigate('HongNgoai')}
+          onPress={() => props.navigation.navigate("HongNgoai")}
         >
           <Text style={styles.button}>Cảm biến hồng ngoại</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => props.navigation.navigate('KhiGas')}
+          onPress={() => props.navigation.navigate("KhiGas")}
         >
           <Text style={styles.button}>Cảm biến khí gas</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-
 };
-
 
 export default Main;
 
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   infomation: {
     // width: 411,
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     height: 210,
@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
     // alignSelf: "flex-end",
     // paddingLeft: 160,
     // //flex:1,
-    flex:1,
-    justifyContent:'flex-end',
-    alignItems:'center',
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   userInfo: {
     justifyContent: "center",
