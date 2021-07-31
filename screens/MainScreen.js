@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -16,12 +16,19 @@ const Main = (props) => {
     name: "",
     email: "",
   });
-  db.ref("/user")
-    .once("value")
-    .then((snapshot) => {
-      console.log(snapshot.val().name, snapshot.val().email);
-    });
 
+  const getData = () =>{
+    db.ref("/user")
+    .once('value', snapshot => {
+      //setUser({name:snapshot.val().name, email: snapshot.val().email})
+     // console.log(snapshot.val() )
+      setUser(snapshot.val());
+      //setLoading(true);
+    });
+  }
+  useEffect(() =>  {
+      getData()
+  }, [user]);
   return (
     <View styles={styles.container}>
       <ImageBackground
