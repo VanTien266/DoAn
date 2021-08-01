@@ -1,13 +1,23 @@
 import time
-import collections
 import json
 from random import randint
 from Adafruit_IO import MQTTClient, Feed, RequestError
 
-from firebase import firebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 
-FirebaseConn = firebase.FirebaseApplication(
-    'https://doandanganh-68058-default-rtdb.firebaseio.com/', None)
+# Fetch the service account key JSON file
+cred = credentials.Certificate('firebase-sdk.json')
+ 
+# Initialize the app with a service account
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://doandanganh-68058-default-rtdb.firebaseio.com/'
+})
+ 
+ 
+ 
+ref = db.reference('/')
 
 # ADAFRUIT_IO_USERNAME = "CSE_BBC1"
 # ADAFRUIT_IO_KEY = "aio_ieyO306EGPxQmn7S23iE7p3jIG8O"
@@ -19,16 +29,6 @@ ADAFRUIT_IO_KEY = "aio_xxzv70gBaEp0D9DEhhxRwbOpYhTI"
 aio = MQTTClient(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
 aio.connect()
 
-#Convert Unicode type to String type
-def convert(data):
-    if isinstance(data, basestring):
-        return str(data)
-    elif isinstance(data, collections.Mapping):
-        return dict(map(convert, data.iteritems()))
-    elif isinstance(data, collections.Iterable):
-        return type(data)(map(convert, data))
-    else:
-        return data
 
 #Emulate gas sensor
 def publish_gas():
@@ -57,8 +57,17 @@ def publish_magnetic():
                 json.dumps(magnetic_data))
 
 #Emulate speaker (to get fisrt data)=> don't enable
-def publish_speaker():
-    FEED_NAME = 'bk-iot-speaker'
+def publish_speaker_gas():
+    FEED_NAME = 'bk-iot-speaker-gas'
+    data = randint(0, 1023)
+    speaker_data = {"id": "3", "name": "SPEAKER",
+                    "data": "{}".format(data), "unit": ""}
+    print(speaker_data)
+    #publish data to ada server
+    aio.publish(FEED_NAME,
+                json.dumps(speaker_data))
+def publish_speaker_magnetic():
+    FEED_NAME = 'bk-iot-speaker-magnetic'
     data = randint(0, 1023)
     speaker_data = {"id": "3", "name": "SPEAKER",
                     "data": "{}".format(data), "unit": ""}
@@ -81,12 +90,14 @@ def publish_relay():
 
 print("Publishing...")
 while True:
-    relay_data = FirebaseConn.get('data_relay', None)   #get data from relay
-    relay_data = convert(relay_data)
-    if relay_data.values()[-1]['status']:               #If relay turn on then run sensor
+    publish_relay();
+    ref = db.reference('data_relay')
+    present_status=list(ref.get().values())[-1]['status']
+    if present_status=='1':               #If relay turn on then run sensor
         publish_gas()
         publish_magnetic()
-        # publish_speaker()
+        # publish_speaker_gas()
+        # publish_speaker_magnetic()
     else:
         pass
 
