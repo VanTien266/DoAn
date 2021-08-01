@@ -6,8 +6,6 @@ import Setting from "../screens/HongNgoai/Setting";
 import Camera from "../screens/HongNgoai/Camera";
 import Notify from "../screens/HongNgoai/Notification";
 import Status from "../screens/HongNgoai/Status";
-import StatusEnable from "../screens/HongNgoai/StatusEnable";
-import StatusDisable from "../screens/HongNgoai/StatusDisable";
 
 
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
@@ -16,10 +14,8 @@ export default function TabsCongTac() {
   const StatusStack = createStackNavigator();
   function StatusStackScreen() {
     return (
-      <StatusStack.Navigator initialRouteName="Status" headerMode="none">
+      <StatusStack.Navigator name = "Status" headerMode="none">
         <StatusStack.Screen name="Status" component={Status} />
-        <StatusStack.Screen name="StatusEnable" component={StatusEnable} />
-        <StatusStack.Screen name="StatusDisable" component={StatusDisable} />
       </StatusStack.Navigator>
     );
   }
