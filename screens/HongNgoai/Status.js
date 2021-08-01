@@ -1,42 +1,37 @@
-import React, { Component } from "react";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
-
+import React, { useEffect, useState } from "react";
+import { Component } from "react";
+import { Text, View, Image, StyleSheet, TouchableOpacity, Button } from "react-native";
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import { db } from "../../Components/FirebaseConfig";
+import notificationManager from "./Alarm";
 export default class Status extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.poly}
-          onPress={() => this.props.navigation.navigate("StatusEnable")}
-        >
-          <Text
-            style={{
-              marginBottom: 10,
-            }}
-          >
-            Kích hoạt
-          </Text>
-          <Image source={require("../../assets/icon/poly_green.png")} />
-        </TouchableOpacity>
-        <Image source={require("../../assets/icon/lock_red.png")} />
-        <TouchableOpacity
-          style={styles.poly}
-          onPress={() => this.props.navigation.navigate("StatusDisable")}
-        >
-            <Image source={require("../../assets/icon/poly_red.png")} />
-
-            <Text
-              style={{
-                marginTop: 10,
-              }}
-            >
-              Tắt
-            </Text>
-        </TouchableOpacity>
-      </View>
-    );
+  constructor(props) {
+    super(props)
+    this.localNotify
   }
-}
+
+  componentDidMount() {
+    this.localNotify = notificationManager
+    this.localNotify.configure()
+  }
+  onPressNotification =( )=> {
+       this.localNotify.showNotification(
+         1, 
+         "App Notification",
+       )
+  };
+  render() {
+    return(
+      <View style={styles.container}>
+        <Button
+          onPress = {method}
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+      </View>);
+    }
+  }
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -47,6 +42,6 @@ const styles = StyleSheet.create({
   },
   poly: {
     alignItems: "center",
-    margin: 12,
+    margin: 10,
   },
 });
