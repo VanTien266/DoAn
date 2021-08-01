@@ -91,6 +91,7 @@ def subcribe_magnetic():
         'time': timestamp_p,
         'status': status,
     }
+    db.reference('request/magnetic').update({'status':input_data['status']})
     ref = db.reference('data_magnetic')
     ref.push(input_data)  # Store to firebase
     # print("Done!!!")
@@ -117,6 +118,7 @@ def subcribe_gas():
         'status': status,
     }
     # print("Push to firebase", input_data)
+    db.reference('request/gas_sensor').update({'status':input_data['status']})
     ref = db.reference('data_gas')
     ref.push(input_data)  # Store to firebase
     # print("Done!!!")
