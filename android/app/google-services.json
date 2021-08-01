@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "798898998810",
+    "firebase_url": "https://doandanganh-68058-default-rtdb.firebaseio.com",
+    "project_id": "doandanganh-68058",
+    "storage_bucket": "doandanganh-68058.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798898998810:android:ba3dabe650f17350638ba3",
+        "android_client_info": {
+          "package_name": "com.doan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798898998810-cjke4g21r4d5n6vapd4l8hcb0mrelhln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1qsuH-PvmsCwoiLO7j-_eD9Bv3pQE0tA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798898998810-cjke4g21r4d5n6vapd4l8hcb0mrelhln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
