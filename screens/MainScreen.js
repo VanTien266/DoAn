@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Tabs from "../routes/BottomNav";
 import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
 
 const Main = (props) => {
   const [user, setUser] = useState({
@@ -17,12 +18,25 @@ const Main = (props) => {
     email: "",
   });
 
+  const currentUser = auth().currentUser;
+
   const getData = () =>{
     database().ref("/user")
-    .once('value', snapshot => {
+    .on('value', snapshot => {
       //setUser({name:snapshot.val().name, email: snapshot.val().email})
      // console.log(snapshot.val() )
-      setUser(snapshot.val());
+     
+      if(auth().currentUser) {
+          snapshot.forEach(elem => {
+          if (elem.val().email == currentUser.email){
+            //console.log(elem)
+            setUser({
+              name: elem.val().name,
+              email: elem.val().email,
+            })
+          }
+        })
+      }
       //setLoading(true);
     });
   }
@@ -67,6 +81,17 @@ const Main = (props) => {
           onPress={() => props.navigation.navigate("KhiGas")}
         >
           <Text style={styles.button}>Cảm biến khí gas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={()=>{ auth().signOut().then( () => {
+            console.log("sign out success")
+            props.navigation.navigate("Login")
+          }).catch( err => {
+            console.log(err)
+          })
+          }}>
+            <Text style={styles.button}>Test Sign out</Text>
         </TouchableOpacity>
       </View>
     </View>

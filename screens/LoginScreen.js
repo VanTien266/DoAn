@@ -12,12 +12,23 @@ export default function Login({ navigation }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const loginPressHandler = (username, password) => {
-    auth().signInWithEmailAndPassword(username, password).then(
-      console.log("login to account: "+ username),
-      navigation.navigate("Main")
-    )
-    
-  };
+    try{
+      if  (username != "" && password != "") {
+        auth().signInWithEmailAndPassword(username, password).then(
+          console.log("sign in with email: " + username)
+        )
+      }
+      else {
+        alert("Username and password cannot be empty")
+      }
+    } catch(err){alert(err)}
+    auth().onAuthStateChanged(user => {
+      if(user){
+        console.log("login to account: " + username),
+        navigation.navigate("Main")
+      }
+    })
+  };  
 
   const registerPressHandler = () => {
     navigation.navigate("Register");
