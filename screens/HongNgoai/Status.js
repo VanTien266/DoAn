@@ -1,41 +1,35 @@
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity, Button } from "react-native";
+import Sound from 'react-native-sound';
 
-export default class Status extends Component {
-  render() {
+
+
+
+export default function Status() {
+    const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+      else {console.log('loaded the sound');}
+    })
+    const playsound= ()=>{
+      sound.play()
+    }
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.poly}
-          onPress={() => this.props.navigation.navigate("StatusEnable")}
-        >
-          <Text
-            style={{
-              marginBottom: 10,
-            }}
-          >
-            Kích hoạt
-          </Text>
-          <Image source={require("../../assets/icon/poly_green.png")} />
-        </TouchableOpacity>
-        <Image source={require("../../assets/icon/lock_red.png")} />
-        <TouchableOpacity
-          style={styles.poly}
-          onPress={() => this.props.navigation.navigate("StatusDisable")}
-        >
-            <Image source={require("../../assets/icon/poly_red.png")} />
-
-            <Text
-              style={{
-                marginTop: 10,
-              }}
-            >
-              Tắt
-            </Text>
-        </TouchableOpacity>
+          <Button style = {styles.poly}
+          onPress = {playsound}
+          title="Start"
+          color= "green"
+          /> 
+          <Button style = {styles.poly}
+          onPress = {() => {sound.stop()}}
+          title="Stop"
+          color= "green"
+          /> 
       </View>
     );
-  }
 }
 const styles = StyleSheet.create({
   container: {

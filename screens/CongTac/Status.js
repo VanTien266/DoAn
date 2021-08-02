@@ -2,6 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity, Vibration, Button } from "react-native";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import { db } from "../../Components/FirebaseConfig";
+import Sound from 'react-native-sound';
+
+const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
+  if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  else {  
+    console.log('loaded the sound');
+    sound.setNumberOfLoops(-1);
+  }
+})
 export default function Status() {
   const DURATION =[1000,1000]
   const REAPEAT = true
@@ -14,16 +26,15 @@ export default function Status() {
   const [status, setStatus] = useState(false)
 
   const startVibration = () => {
+    sound.play()
     Vibration.vibrate(DURATION, REAPEAT)
   }
   const stopVibration = () => {
+    sound.stop()
     Vibration.cancel()
   }
 
   const getData = () => {
-    db.ref("/request/magnetic").on('value', snapshot => {
-      setStatus(Boolean(snapshot.val().status));
-    })
     db.ref("/request/relay")
       .on('value', snapshot => {
         //setUser({name:snapshot.val().name, email: snapshot.val().email})
@@ -32,6 +43,9 @@ export default function Status() {
         else setIsActive(false);
         //setLoading(true);
       });
+    db.ref("/request/magnetic").on('value', snapshot => {
+      setStatus(Boolean(snapshot.val().status));
+    })
   }
   const batCongTac = () => {
     setImage(active)
