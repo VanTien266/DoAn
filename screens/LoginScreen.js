@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
   Text,
   View,
@@ -13,12 +13,15 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("")
   const usernameRef = React.createRef()
   const passwordRef = React.createRef()
-  const loginPressHandler = async (username, password) => {
+  const loginPressHandler = (username, password) => {
     try{
       // auth().signOut()
       if  (username != "" && password != "") {
         auth().signInWithEmailAndPassword(username, password)
-          .then().catch((err)=>{alert(err)})
+          .then().catch((err)=>{
+            alert(err)
+            //passwordRef
+          })
       }
       else {
         alert("Username and password cannot be empty")
@@ -26,7 +29,7 @@ export default function Login({ navigation }) {
     } catch(err){alert(err)}
     auth().onAuthStateChanged(user => {
       if(user){
-        passwordRef.current.clear()
+        if (passwordRef.current){passwordRef.current.clear()}
         console.log("login to account: " + username),
         navigation.navigate("Main")
       }
@@ -36,6 +39,7 @@ export default function Login({ navigation }) {
   const registerPressHandler = () => {
     navigation.navigate("Register");
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Đăng nhập</Text>
