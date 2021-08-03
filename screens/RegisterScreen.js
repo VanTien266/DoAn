@@ -8,10 +8,36 @@ import {
     CheckBox,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
 export default function Register({ navigation }) {
-    const loginPressHandler = () => {
-        navigation.navigate("Main");
+    const [input, setInput] = useState({
+        name:"",
+        phone:"",
+        email:"",
+        password:"",
+        confirm_password:"",
+    })
+    const loginPressHandler = (input) => {
+        if (input.password != input.confirm_password){
+            alert("Password didn't match")
+        }
+        else if (!isSelected){
+            alert("Please agree to the terms and services")
+        }
+        else {
+            auth().createUserWithEmailAndPassword(input.email, input.password).then(
+                () => {
+                    database().ref('/user').push().set({
+                        name:input.name,
+                        phone:input.phone,
+                        email:input.email.toLowerCase(),
+                    }),
+                    navigation.navigate("Main")
+                }
+            ).catch((error) => { alert(error.code)})
+        }
     };
 
     const [isSelected, setSelection] = useState(false)
@@ -21,11 +47,68 @@ export default function Register({ navigation }) {
             <Text style={styles.title}>Đăng ký</Text>
             <Text style={styles.description}>Điền thông tin tài khoản</Text>
             <ScrollView showsVerticalScrollIndicator={false} >
-                <TextInput style={styles.input} placeholder="Họ và tên" />
-                <TextInput style={styles.input} placeholder="Số điện thoại" />
-                <TextInput style={styles.input} placeholder="Email" />
-                <TextInput secureTextEntry style={styles.input} placeholder="Mật khẩu" />
-                <TextInput secureTextEntry style={styles.input} placeholder="Nhập lại mật khẩu" />
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Họ và tên" 
+                    onChangeText={(value)=>{
+                        setInput({
+                            name: value,
+                            phone:input.phone,
+                            email:input.email,
+                            password:input.password,
+                            confirm_password:input.confirm_password,
+                        })
+                    }} />
+                <TextInput 
+                    style={styles.input} 
+                    onChangeText={(value)=>{
+                        setInput({
+                            name: input.name,
+                            phone:value,
+                            email:input.email,
+                            password:input.password,
+                            confirm_password:input.confirm_password,
+                        })
+                    }}
+                    placeholder="Số điện thoại" />
+                <TextInput 
+                    style={styles.input} 
+                    onChangeText={(value)=>{
+                        setInput({
+                            name: input.name,
+                            phone:input.phone,
+                            email:value,
+                            password:input.password,
+                            confirm_password:input.confirm_password,
+                        })
+                    }}
+                    placeholder="Email" />
+                <TextInput 
+                    secureTextEntry 
+                    style={styles.input} 
+                    onChangeText={(value)=>{
+                        setInput({
+                            name: input.name,
+                            phone:input.phone,
+                            email:input.email,
+                            password:value,
+                            confirm_password:input.confirm_password,
+                        })
+                    }}
+                    placeholder="Mật khẩu" />
+                <TextInput 
+                    secureTextEntry
+                    style={styles.input} 
+                    onChangeText={(value)=>{
+                        setInput({
+                            name: input.name,
+                            phone:input.phone,
+                            email:input.email,
+                            password:input.password,
+                            confirm_password:value,
+                        })
+                    }}
+                    placeholder="Nhập lại mật khẩu" />
             </ScrollView>
             <View style={styles.accept}>
                 <CheckBox
@@ -36,7 +119,11 @@ export default function Register({ navigation }) {
                 <Text style={styles.checkboxText}>Tôi đồng ý với các điều khoản dịch vụ</Text>
             </View>
 
-            <TouchableOpacity style={styles.buttonContainer} onPress={loginPressHandler}>
+            <TouchableOpacity 
+                style={styles.buttonContainer} 
+                onPress={()=>{
+                    loginPressHandler(input)
+                }}>
                 <Text style={styles.button}>Tiếp tục</Text>
             </TouchableOpacity>
         </View>

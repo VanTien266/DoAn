@@ -6,9 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from "react-native";
-import Tabs from "../routes/BottomNav";
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 
@@ -28,7 +26,9 @@ const Main = (props) => {
      
       if(auth().currentUser) {
           snapshot.forEach(elem => {
-          if (elem.val().email == currentUser.email){
+            //console.log(elem.val().email + " " + currentUser.email)
+            if (elem.val().email == currentUser.email){
+            
             //console.log(elem)
             setUser({
               name: elem.val().name,
@@ -40,9 +40,10 @@ const Main = (props) => {
       //setLoading(true);
     });
   }
-  useEffect(() =>  {
+  useEffect( () =>  {
       getData()
-  }, [user]);
+      //console.log(auth().currentUser.email)
+  }, [user.email,user.name]);
   return (
     <View styles={styles.container}>
       <ImageBackground
@@ -84,7 +85,9 @@ const Main = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={()=>{ auth().signOut().then( () => {
+          onPress={async () => { 
+            //await AsyncStorage.clear()
+            auth().signOut().then( () => {
             console.log("sign out success")
             props.navigation.navigate("Login")
           }).catch( err => {

@@ -11,12 +11,14 @@ import auth from '@react-native-firebase/auth';
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const loginPressHandler = (username, password) => {
+  const usernameRef = React.createRef()
+  const passwordRef = React.createRef()
+  const loginPressHandler = async (username, password) => {
     try{
+      // auth().signOut()
       if  (username != "" && password != "") {
-        auth().signInWithEmailAndPassword(username, password).then(
-          console.log("sign in with email: " + username)
-        )
+        auth().signInWithEmailAndPassword(username, password)
+          .then().catch((err)=>{alert(err)})
       }
       else {
         alert("Username and password cannot be empty")
@@ -24,6 +26,7 @@ export default function Login({ navigation }) {
     } catch(err){alert(err)}
     auth().onAuthStateChanged(user => {
       if(user){
+        passwordRef.current.clear()
         console.log("login to account: " + username),
         navigation.navigate("Main")
       }
@@ -37,10 +40,12 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Đăng nhập</Text>
       <TextInput 
+        ref={usernameRef}
         style={styles.input} 
         onChangeText={(value)=>{setUsername(value)}}
         placeholder="Tài khoản" />
       <TextInput 
+        ref={passwordRef}
         secureTextEntry 
         style={styles.input} 
         onChangeText={(value)=>{setPassword(value)}}
