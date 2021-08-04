@@ -23,6 +23,7 @@ const screens = {
     screen: MainScreen,
     navigationOptions: {
       title: "Trang chủ",
+      
     },
   },
   CongTac: {

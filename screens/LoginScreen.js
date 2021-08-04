@@ -45,6 +45,7 @@ export default function Login({ navigation }) {
       <Text style={styles.title}>Đăng nhập</Text>
       <TextInput 
         ref={usernameRef}
+        keyboardType={"email-address"}
         style={styles.input} 
         onChangeText={(value)=>{setUsername(value)}}
         placeholder="Tài khoản" />

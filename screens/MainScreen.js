@@ -88,7 +88,7 @@ const Main = (props) => {
             console.log(err)
           })
           }}>
-            <Text style={styles.button}>Test Sign out</Text>
+            <Text style={styles.button}>Sign out</Text>
         </TouchableOpacity>
       </View>
     </View>
