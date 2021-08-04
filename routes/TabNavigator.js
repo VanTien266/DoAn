@@ -74,31 +74,7 @@ export default function TabsCongTac() {
               }}
             >
               <Image
-                source={require("../assets/icon/customer-support.png")}
-                resizeMode="contain"
-                style={{
-                  width: focused ? 50 : 40,
-                  height: focused ? 50 : 40,
-                }}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Camera"
-        component={Camera}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 5,
-              }}
-            >
-              <Image
-                source={require("../assets/icon/cctv-camera.png")}
+                source={require("../assets/icon/speaker.png")}
                 resizeMode="contain"
                 style={{
                   width: focused ? 50 : 40,

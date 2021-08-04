@@ -73,12 +73,6 @@ const Main = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => props.navigation.navigate("HongNgoai")}
-        >
-          <Text style={styles.button}>Cảm biến hồng ngoại</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonContainer}
           onPress={() => props.navigation.navigate("KhiGas")}
         >
           <Text style={styles.button}>Cảm biến khí gas</Text>

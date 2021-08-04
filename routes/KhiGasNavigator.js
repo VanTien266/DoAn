@@ -48,7 +48,7 @@ export default function KhiGasTab() {
                 name="Setting"
                 component={Setting}
                 options={{
-                    tabBarIcon: ({ focused }) => setTabBarIcon(focused, require("../assets/KhiGasIcon/setting.png"))
+                    tabBarIcon: ({ focused }) => setTabBarIcon(focused, require("../assets/icon/speaker.png"))
                 }}
             />
             <Tab.Screen

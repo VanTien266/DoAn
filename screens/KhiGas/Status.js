@@ -1,16 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-native-elements"
-import { Text, View, Image, StyleSheet, ToastAndroid, TouchableOpacity } from "react-native";
+import { Text, View, Image, StyleSheet, ToastAndroid, TouchableOpacity, Button, Vibration } from "react-native";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import database from '@react-native-firebase/database';
+import Sound from 'react-native-sound';
+
+const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
+  if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  else {  
+    sound.setNumberOfLoops(-1);
+  }
+})
 
 export default function Status() {
+  const DURATION =[1000,1000]
+  const REAPEAT = true
   const unactive = require("../../assets/icon/lock_red.png")
   const active = require("../../assets/icon/shield.png")
+  const warning = require("../../assets/icon/warning.png")
   const both = { unactive, active }
   const [image, setImage] = useState(unactive)
-  const [sensorStatus, setSensorStatus] = useState(true)
+  const [sensorStatus, setStatus] = useState(true)
   const [isActive, setIsActive] = useState(false)
+
+  const startVibration = () => {
+    sound.play()
+    Vibration.vibrate(DURATION, REAPEAT)
+  }
+  const stopVibration = () => {
+    sound.stop()
+    Vibration.cancel()
+  }
 
   const showToastWithGravity = (status) => {
     ToastAndroid.showWithGravity(
@@ -20,31 +43,40 @@ export default function Status() {
     );
   };
 
-  const getRelayData = () => {
+  const getData = () => {
     database().ref("/request/relay")
       .on('value', snapshot => {
         //setUser({name:snapshot.val().name, email: snapshot.val().email})
         //console.log(snapshot.val() )
-        setIsActive(Boolean(snapshot.val().status));
-        if (isActive) {
-          setImage(active)
-        }
-        else {
-          setImage(unactive)
-        }
+        if (snapshot.val().value == "ON") setIsActive(true);
+        else setIsActive(false);
         //setLoading(true);
       });
+      database().ref("/request/gas_sensor").on('value', snapshot => {
+      setStatus(Boolean(Number(snapshot.val().status)));
+    })
   }
-  const getSensorData = () => {
-    database().ref("/request/gas_sensor")
-      .on('value', snapshot => {
-        setSensorStatus(Boolean(snapshot.val().status));
-      });
+
+  const statusChange = () => {
+    if (isActive) {
+      if (sensorStatus) {setImage(warning)}
+      else {setImage(active)}
+    }
+    else {
+      setImage(unactive)
+    }
+    if (sensorStatus == false || isActive == false) {
+      stopVibration()
+    }
+    if (sensorStatus == true && isActive == true) {
+      startVibration()
+    }
   }
   const swipeUp = () => {
+    setIsActive(true)
     setImage(active)
     //setIsActive(true)
-    database().ref("/request/relay").set({
+    database().ref("/request/relay").update({
       status: 1,
       value: "ON"
     }).then((snapshot) => {
@@ -53,10 +85,11 @@ export default function Status() {
   }
 
   const swipeDown = () => {
+    setIsActive(false)
     setImage(unactive)
     //setIsActive(false)
-    database().ref("/request/relay").set({
-      status: 0,
+    database().ref("/request/relay").update({
+      status: 1,
       value: "OFF"
     }).then(
       //showToastWithGravity("OFF")
@@ -64,79 +97,73 @@ export default function Status() {
   }
 
   useEffect(() => {
-    getRelayData()
-    getSensorData()
-  }, [isActive, sensorStatus]);
+    getData()
+  });
+  useEffect(statusChange, [sensorStatus, isActive])
   return (
+    <View style={styles.container}>
     <GestureRecognizer
-      style={{ flex: 1 }}
+      style = {styles.poly}
       onSwipeUp={swipeUp}
       onSwipeDown={swipeDown}
     >
-      <View style={[styles.container]}>
+      <View style={styles.poly}>
         {isActive ? null : <Text>Kích hoạt</Text>}
-        {isActive ? null : <Image style={styles.poly} source={require("../../assets/icon/poly_green.png")} />}
-
+        {isActive ? null : <Image source={require("../../assets/icon/poly_green.png")} />}
+      </View>
         <Image source={image} style={{ width: 200, height: 200, resizeMode: "contain" }} />
 
-
-        {isActive ? <Image style={styles.poly} source={require("../../assets/icon/poly_red.png")} /> : null}
+        <View style={styles.poly}>
+        {isActive ? <Image source={require("../../assets/icon/poly_red.png")} /> : null}
         {isActive ? <Text>Tắt</Text> : null}
-      </View>
+        </View>
       {isActive ?
-        <View style={styles.card}>
-          {sensorStatus ? 
+          sensorStatus ? 
               <Card containerStyle={styles.redCard}>
                 <Text 
                   style={styles.titleText}>
-                    Hệ thống đang bật {"\n"}
+                    Hệ thống đang bật
                   </Text>
                 <Text 
                   style={styles.gasSensorStatus}>
                     Nồng độ khí gas trong không khí vượt mức cho phép
                   </Text>
-                  
+                  <View style={styles.poly}>
+          <Button 
+          onPress = {stopVibration}
+          title="TẮT CẢNH BÁO"
+          color= "red"
+          /> 
+        </View>
                 </Card> : 
               <Card containerStyle={styles.greenCard}>
                 <Text 
                   style={styles.titleText}>
-                    Hệ thống đang bật {"\n"}
+                    Hệ thống đang bật 
                   </Text>
                 <Text 
                   style={styles.gasSensorStatus}>
                     Nồng độ khí gas trong không khí ở mức bình thường
                   </Text>
                 </Card>
-            }
-        </View>
-        : <View style={styles.card}>
-            <Card containerStyle={styles.greyCard}>
+            
+        : <Card containerStyle={styles.greyCard}>
               <Text
                 style={styles.offText}>
                 Hệ thống đã được tắt {"\n"}Vuốt lên để bật lại.
               </Text>
-              
-              <Text
-                style={styles.offText}>
-                
-              </Text>
-              
-
           </Card>
-        </View>
       }
-
-
-
     </GestureRecognizer >
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    flex: 2,
-    justifyContent: "flex-end",
+    flex: 1,
+    justifyContent: "center",
     // position:'absolute'
     // alignSelf:'center'
   },
@@ -154,11 +181,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color:"white",
     textAlign: "center",
-  },
-  card: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "flex-start",
   },
   gasSensorStatus: {
     fontSize: 20,

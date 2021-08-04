@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, Vibration, Button } fr
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import { db } from "../../Components/FirebaseConfig";
 import Sound from 'react-native-sound';
+import { Card } from "react-native-elements"
 
 const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
   if (error) {
@@ -10,7 +11,6 @@ const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
     return;
   }
   else {  
-    console.log('loaded the sound');
     sound.setNumberOfLoops(-1);
   }
 })
@@ -44,7 +44,7 @@ export default function Status() {
         //setLoading(true);
       });
     db.ref("/request/magnetic").on('value', snapshot => {
-      setStatus(Boolean(snapshot.val().status));
+      setStatus(Boolean(Number(snapshot.val().status)));
     })
   }
   const batCongTac = () => {
@@ -83,9 +83,6 @@ export default function Status() {
     )
   }
   
-  const tatCanhbao = () => {
-    stopVibration()
-  }
   useEffect(() => {
     getData()
   });
@@ -102,32 +99,54 @@ export default function Status() {
               marginBottom: 10,
             }}
           >
-            Kích hoạt
+            Kích hoạt hệ thống
           </Text>
           <Image source={require("../../assets/icon/poly_green.png")} />
         </TouchableOpacity>}
 
         <Image source={image} style={{ width: 200, height: 200, resizeMode: "contain" }} />
 
-        {isActive ? status ? <View style={styles.poly}>
-          <Button
-          onPress = {tatCanhbao}
-          title="TẮT CẢNH BÁO"
-          color= "green"
-          /> 
-        </View>: <TouchableOpacity
+        {isActive ? <TouchableOpacity
           style={styles.poly}
           onPress={tatCongtac}
         >
+          <Image source={require("../../assets/icon/poly_red.png")} />
           <Text
             style={{
-              marginBottom: 10,
+              marginTop: 10,
             }}
           >
-            Tắt
+            Tắt hệ thống
           </Text>
-          <Image source={require("../../assets/icon/poly_red.png")} />
-        </TouchableOpacity> : null} 
+        </TouchableOpacity> : null}
+
+        {isActive ? status ? <Card containerStyle={styles.redCard}>
+                <Text 
+                  style={styles.titleText}>
+                    Hệ thống đang bật
+                  </Text>
+                <Text 
+                  style={styles.SensorStatus}>
+                    Phát hiện có người đột nhập
+                  </Text>
+                  <View style={styles.poly}>
+          <Button 
+          onPress = {stopVibration}
+          title="TẮT CẢNH BÁO"
+          color= "red"
+          /> 
+        </View>
+                </Card> : <Card containerStyle={styles.greenCard}>
+                <Text 
+                  style={styles.titleText}>
+                    Hệ thống đang bật
+                  </Text>
+                </Card> : <Card containerStyle={styles.greyCard}>
+              <Text
+                style={styles.offText}>
+                Hệ thống đã được tắt {"\n"}Nhấn nút để bật lại.
+              </Text>
+          </Card>} 
       </View>
     
   );
@@ -144,5 +163,33 @@ const styles = StyleSheet.create({
   poly: {
     alignItems: "center",
     margin: 10,
+  },
+  redCard: {
+    backgroundColor: "#BD1D1D",
+  },
+  greenCard: {
+    backgroundColor: "#00DC7F",
+  },
+  greyCard: {
+    backgroundColor: "#696969",
+    height:138,
+    width:330,
+    justifyContent:"center",
+  },
+  SensorStatus: {
+    fontSize: 20,
+    textAlign:"center",
+    color:"white",
+  },
+  titleText: {
+    fontSize: 22,
+    fontWeight:"bold",
+    textAlign:"center",
+    color:"white",
+  },
+  offText: {
+    fontSize: 20,
+    color:"white",
+    textAlign: "center",
   },
 });

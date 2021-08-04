@@ -21,7 +21,7 @@ export default function Status() {
           <Button style = {styles.poly}
           onPress = {playsound}
           title="Start"
-          color= "green"
+          color= "white"
           /> 
           <Button style = {styles.poly}
           onPress = {() => {sound.stop()}}
