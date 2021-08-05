@@ -9,13 +9,38 @@ import {
 } from "react-native";
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import { db } from "../Components/FirebaseConfig";
 
 const Main = (props) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
   });
-
+  const [magneticStatus, setMagneticStatus] = useState(false)
+  const [isActive, setIsActive] = useState(false)
+  const [gasStatus, setGasStatus] = useState(false)
+  const getsensorData = () => {
+    db.ref("/request/relay")
+      .on('value', snapshot => {
+        //setUser({name:snapshot.val().name, email: snapshot.val().email})
+        //console.log(snapshot.val() )
+        if (snapshot.val().value == "ON") setIsActive(true);
+        else setIsActive(false);
+        //setLoading(true);
+      });
+    db.ref("/request/magnetic").on('value', snapshot => {
+      setMagneticStatus(Boolean(Number(snapshot.val().status)));
+    })
+    db.ref("/request/gas_sensor").on('value', snapshot => {
+      setGasStatus(Boolean(Number(snapshot.val().status)));
+    })
+  }
+  const baoDong = () => {
+    if (isActive) {
+      if (magneticStatus) {props.navigation.navigate("CongTac")}
+      else if (gasStatus) {props.navigation.navigate("KhiGas")}
+    }
+  } 
   const currentUser = auth().currentUser;
 
   const getData = () =>{
@@ -44,6 +69,8 @@ const Main = (props) => {
       getData()
       //console.log(auth().currentUser.email)
   }, [user.email,user.name]);
+  useEffect(()=> {getsensorData()})
+  useEffect(()=> {baoDong()}, [isActive, magneticStatus, gasStatus])
   return (
     <View styles={styles.container}>
       <ImageBackground

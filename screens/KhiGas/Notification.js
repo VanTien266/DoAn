@@ -1,9 +1,34 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import NotificationItem from "./Notification/NotficationItem";
 import { SearchBar } from 'react-native-elements';
+import { db } from "../../Components/FirebaseConfig";
 
-export default function Notification() {
+export default function Notification({navigation}) {
+  const [isActive, setIsActive] = useState(false)
+    const [status, setStatus] = useState(false)
+    const getData = () => {
+        db.ref("/request/relay")
+        .on('value', snapshot => {
+          //setUser({name:snapshot.val().name, email: snapshot.val().email})
+          //console.log(snapshot.val() )
+          if (snapshot.val().value == "ON") setIsActive(true);
+          else setIsActive(false);
+          //setLoading(true);
+        });
+    db.ref("/request/gas_sensor").on('value', snapshot => {
+        setStatus(Boolean(Number(snapshot.val().status)));
+      })
+    }
+    const baoDong = () => {
+      if (isActive) {
+          if (status) {
+              navigation.navigate('Status')
+          }
+      }
+  }
+  useEffect(()=>{baoDong()}, [isActive, status])
+  useEffect(()=>{getData()})
   const [searchQuery, setSearchQuery] = useState('')
   return (
     <View style={styles.container}>
