@@ -14,7 +14,7 @@ const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
     sound.setNumberOfLoops(-1);
   }
 })
-export default function Status() {
+export default function Status({navigation}) {
   const DURATION =[1000,1000]
   const REAPEAT = true
   const unactive = require("../../assets/icon/unlock.png")
@@ -26,6 +26,7 @@ export default function Status() {
   const [status, setStatus] = useState(false)
 
   const startVibration = () => {
+    navigation.navigate('Status')
     sound.play()
     Vibration.vibrate(DURATION, REAPEAT)
   }
@@ -82,7 +83,13 @@ export default function Status() {
       console.log("MAGNETIC DETECT BUTTON SWITCH OFF")
     )
   }
-  
+  const baoDong = () => {
+    if (isActive) {
+        if (status) {
+            navigation.navigate('Status')
+        }
+    }
+}
   useEffect(() => {
     getData()
   });

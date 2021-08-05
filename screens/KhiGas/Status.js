@@ -15,7 +15,7 @@ const sound = new Sound(require('../../assets/alarm.mp3'),(error) => {
   }
 })
 
-export default function Status() {
+export default function Status({navigation}) {
   const DURATION =[1000,1000]
   const REAPEAT = true
   const unactive = require("../../assets/icon/lock_red.png")
@@ -27,6 +27,7 @@ export default function Status() {
   const [isActive, setIsActive] = useState(false)
 
   const startVibration = () => {
+    navigation.navigate('Status')
     sound.play()
     Vibration.vibrate(DURATION, REAPEAT)
   }

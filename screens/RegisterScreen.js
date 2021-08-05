@@ -73,6 +73,7 @@ export default function Register({ navigation }) {
                     placeholder="Số điện thoại" />
                 <TextInput 
                     style={styles.input} 
+                    keyboardType={"phone-pad"}
                     onChangeText={(value)=>{
                         setInput({
                             name: input.name,
@@ -85,6 +86,7 @@ export default function Register({ navigation }) {
                     placeholder="Email" />
                 <TextInput 
                     secureTextEntry 
+                    keyboardType={"email-address"}
                     style={styles.input} 
                     onChangeText={(value)=>{
                         setInput({

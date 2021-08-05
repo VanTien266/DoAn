@@ -5,22 +5,8 @@ import Slider from '@react-native-community/slider';
 
 
 export default function SpeakerSettingItem({navigation}) {
-    const [isActive, setIsActive] = useState(false)
-    const [status, setStatus] = useState(false)
 
     const getData = () => {
-        db.ref("/request/relay")
-        .on('value', snapshot => {
-          //setUser({name:snapshot.val().name, email: snapshot.val().email})
-          //console.log(snapshot.val() )
-          if (snapshot.val().value == "ON") setIsActive(true);
-          else setIsActive(false);
-          //setLoading(true);
-        });
-    db.ref("/request/gas_sensor").on('value', snapshot => {
-        setStatus(Boolean(Number(snapshot.val().status)));
-      })
-
     db.ref("/request/speaker_gas").on('value', snapshot => {
       setcurVal(snapshot.val().value/10);
     })
@@ -40,7 +26,6 @@ export default function SpeakerSettingItem({navigation}) {
             }
         }
     }
-    useEffect(()=>{baoDong()}, [isActive, status])
     useEffect(()=>{getData()})
     return (
 

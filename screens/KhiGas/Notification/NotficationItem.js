@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { StyleSheet, View, Text } from "react-native";
 
-export default function NotificationItem({ noti }) {
+export default function NotificationItem({ noti, time, date }) {
 
 
     return (
@@ -10,8 +10,8 @@ export default function NotificationItem({ noti }) {
         <View style={styles.container}>
             <Text style={styles.noti}> {noti}</Text>
             <View style={styles.dateInfo}>
-                <Text style={styles.date}>{"12:00"}</Text>
-                <Text style={styles.date}>{"19/09/2020"}</Text>
+                <Text style={styles.date}>{date}</Text>
+                <Text style={styles.date}>{time}</Text>
             </View>
         </View>
     )
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     noti: {
         flex: 3,
         marginStart: 15,
-        fontSize: 20,
+        fontSize: 16,
     },
     dateInfo: {
         flex: 1,

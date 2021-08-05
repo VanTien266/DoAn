@@ -8,18 +8,6 @@ export default function SpeakerSettingItem({navigation}) {
     const [isActive, setIsActive] = useState(false)
     const [status, setStatus] = useState(false)
     const getData = () => {
-        db.ref("/request/relay")
-        .on('value', snapshot => {
-          //setUser({name:snapshot.val().name, email: snapshot.val().email})
-          //console.log(snapshot.val() )
-          if (snapshot.val().value == "ON") setIsActive(true);
-          else setIsActive(false);
-          //setLoading(true);
-        });
-    db.ref("/request/magnetic").on('value', snapshot => {
-        setStatus(Boolean(Number(snapshot.val().status)));
-      })
-
     db.ref("/request/speaker_magnetic").on('value', snapshot => {
       setcurVal(snapshot.val().value/10);
     })
@@ -32,14 +20,7 @@ export default function SpeakerSettingItem({navigation}) {
       }).then((snapshot) => {
       })
     }
-    const baoDong = () => {
-        if (isActive) {
-            if (status) {
-                navigation.navigate('Status')
-            }
-        }
-    }
-    useEffect(()=>{baoDong()}, [isActive, status])
+    
     useEffect(()=>{getData()})
     return (
 
