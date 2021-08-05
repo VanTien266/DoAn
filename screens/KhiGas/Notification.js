@@ -2,15 +2,9 @@ import React, {useEffect, useState} from "react";
 import {FlatList, View, StyleSheet } from "react-native";
 import NotificationItem from "./Notification/NotficationItem";
 import database from '@react-native-firebase/database';
-<<<<<<< HEAD
-
-
-export default function Notification({navigation}) {
-=======
 
 
 export default function Notification() {
->>>>>>> 4a354cfb343757cd0880b5a23da037ff53907edd
   const [data, setData] = useState([])
   const [loaded, setLoaded] = useState(false)
   const getFirebaseData =async  ()=>{
@@ -82,10 +76,6 @@ export default function Notification() {
       console.log("finished")
       console.log(data)
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a354cfb343757cd0880b5a23da037ff53907edd
   useEffect(()=>{
     console.log("start")
     getFirebaseData()
